@@ -1,14 +1,17 @@
 import logo from './logo.svg';
 import './App.css';
+import TextField from '@mui/material/TextField'
 
 function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
         <p>
           Edit <code>src/App.js</code> and save to reload.
         </p>
+        <TextField id="username" label="Username" variant="outlined"/>
+        <TextField id="password" label="Password" variant="outlined"/>
+        
         <p>
           Here is where we will place our login screen to start :)
         </p>
@@ -20,6 +23,7 @@ function App() {
         >
           Learn React
         </a>
+        <img src={logo} className="App-logo" alt="logo" />
       </header>
     </div>
   );
