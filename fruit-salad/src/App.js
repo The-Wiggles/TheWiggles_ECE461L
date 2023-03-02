@@ -9,6 +9,9 @@ function App() {
         <p>
           Edit <code>src/App.js</code> and save to reload.
         </p>
+        <p>
+          Here is where we will place our login screen to start :)
+        </p>
         <a
           className="App-link"
           href="https://reactjs.org"
