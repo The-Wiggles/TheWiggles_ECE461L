@@ -17,3 +17,5 @@ Do so by running npm install in the terminal.
 Finally, to run the app run npm start.
 
 This will run our app on your local machine under localhost:3000.
+
+Branch named "create-simple-login-page" has the updated login page. The main branch is for our backend peeps to experiment linking flask and mongodb to the existing react app.
