@@ -38,17 +38,6 @@ function LoginPage() {
               <Button variant="contained" onClick={navigateToSignUpPage} sx={{marginTop: 1, minWidth: 120, bgcolor: '#cc5500', borderRadius: '16px'}}>SignUp</Button>
             </div>
           </div>
-
-
-          <div class="row">
-            <div class="left">
-            </div>
-            <div class="right">
-            </div>
-          </div>
-
-
-
           <div>
             <p>
               Here is where we will place our login screen to start :) 
