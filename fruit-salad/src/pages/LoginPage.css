@@ -23,9 +23,23 @@
     font-size: calc(10px + 2vmin);
     color: black;
   }
+
+  .LoginButton {
+    padding-left: 50;
+  }
   
   .LoginPage-link {
     color: #61dafb;
+  }
+
+  .column {
+    width: 23%;
+  }
+
+  .row {
+    padding-left: 35%;
+    display: flex;
+    /* clear: both; */
   }
   
   @keyframes LoginPage-logo-spin {
