@@ -1,5 +1,5 @@
-import logo from './logo.svg';
-import './LoginPage.css';
+import logo from './../logos/logo.svg';
+import './../css/LoginPage.css';
 import TextField from '@mui/material/TextField'
 import Box from '@mui/material/Box'
 import { Button } from '@mui/material';
