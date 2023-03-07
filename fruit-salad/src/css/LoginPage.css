@@ -3,7 +3,7 @@
   }
   
   .LoginPage-logo {
-    height: 25vmin;
+    height: 20vmin;
     pointer-events: none;
   }
   
@@ -33,11 +33,11 @@
   }
 
   .column {
-    width: 23%;
+    width: 35%;
   }
 
   .row {
-    padding-left: 35%;
+    padding-left: 23%;
     display: flex;
     /* clear: both; */
   }
