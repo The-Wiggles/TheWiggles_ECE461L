@@ -8,8 +8,8 @@
 # testing
 /coverage
 
-# production
-/build
+# production | Heroku needs build folder to serve page
+# /build
 
 # misc
 .DS_Store
