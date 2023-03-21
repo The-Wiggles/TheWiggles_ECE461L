@@ -5,6 +5,14 @@ import mongo
 
 app = Flask(__name__, static_folder='./fruit-salad/build', static_url_path='/')
 
+# to run locally, install gunicorn and:
+# gunicorn app:app
+
+# gunicorn doesn't work on windows:
+# pip install waitress
+# waitress-serve app:app
+# can access via localhost:8080
+
 # POST: adding
 # PUT: updating
 # GET: retrieving
