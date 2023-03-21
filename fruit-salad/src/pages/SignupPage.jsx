@@ -28,6 +28,7 @@ function SignupPage() {
       const response = await fetch('/add_user', fetch_options);
       const result = await response.text();
       alert(result);
+      console.log(result);
     }
 
     return (
