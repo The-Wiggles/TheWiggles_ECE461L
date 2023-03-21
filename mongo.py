@@ -10,16 +10,32 @@ def addNewUser(userid, password):
     users = db["users"] # users collection under fruit-salad database
 
     if users.find_one({"userid" : userid}):
-        print("User already exists") # can replace this with different return value later
-        return
+        return 'user already exists'
 
     new_user_doc = {"userid": userid, "password": cipher.encrypt(password, 2, 1)}
     user_inserted_id = users.insert_one(new_user_doc).inserted_id
+
     client.close()
-    return
+    return 'user add success'
 
 # Check if userid is valid, then if password is valid.
 def login(userid, password):
-    pass
+    client = pymongo.MongoClient(db_connection_string)
+    db = client["fruit-salad"]
+    users = db["users"]
+
+    user = users.find_one({"userid" : userid})
+
+    if user == None:
+        return 'userid not found'
+    
+    login_pass_encrypted = cipher.encrypt(password)
+    db_pass_encrypted = user['password']
+
+    if login_pass_encrypted == db_pass_encrypted:
+        return 'login success'
+    else:
+        return 'login fail'
+
 
 
