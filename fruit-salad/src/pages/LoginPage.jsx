@@ -1,4 +1,3 @@
-import logo from './../logos/logo.svg';
 import './../css/LoginPage.css';
 import TextField from '@mui/material/TextField'
 import Box from '@mui/material/Box'
