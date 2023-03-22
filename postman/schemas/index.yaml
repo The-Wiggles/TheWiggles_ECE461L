@@ -1,0 +1,42 @@
+openapi: '3.0.0'
+info:
+  version: '1.0.0'
+  title: 'fruit-salad-api'
+  description: Manage users and hardware sets
+
+servers:
+  - url: https://fruit-salad.herokuapp.com
+    description: Main production server
+
+paths:
+  /users:
+    post:
+      summary: Creates a new user
+      requestBody:
+        required: true
+        content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+      responses:
+        '201':
+          description: Created
+          
+
+
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        userid:
+          type: string
+        name:
+          type: string
+        password:
+          type: string
+      required:
+        - userid
+        - name
+        - password
+
