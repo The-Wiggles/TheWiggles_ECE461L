@@ -29,7 +29,7 @@ def login(userid, password):
     if user == None:
         return 'userid not found'
     
-    login_pass_encrypted = cipher.encrypt(password)
+    login_pass_encrypted = cipher.encrypt(password, 2, 1)
     db_pass_encrypted = user['password']
 
     if login_pass_encrypted == db_pass_encrypted:

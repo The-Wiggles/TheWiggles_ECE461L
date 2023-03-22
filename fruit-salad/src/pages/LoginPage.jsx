@@ -46,19 +46,6 @@ function LoginPage() {
         </div>
         </Box>
 
-        <p>
-          Edit <code>src/pages/LoginPage.jsx</code> and save to reload.
-        </p>
-
-        <a
-          className="LoginPage-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-        <img src={logo} className="LoginPage-logo" alt="logo" />
       </header>
     </div>
   );

@@ -23,6 +23,11 @@ app = Flask(__name__, static_folder='./fruit-salad/build', static_url_path='/')
 def serve():
     return send_from_directory(app.static_folder, 'index.html')
 
+@app.errorhandler(404)
+def page_not_found(e):
+    pass
+    # TODO: DO STUFF, SERVE 404 PAGE, OR REDIRECTOTO INDEX?
+
 @app.route('/test')
 def test():
     return 'Hello, World'
