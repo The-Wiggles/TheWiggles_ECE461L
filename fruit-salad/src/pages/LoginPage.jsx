@@ -18,10 +18,12 @@ function LoginPage() {
     navigate('/SignupPage');
   }
 
+  const buttonstyle = {marginTop: 1, minWidth: 120, bgcolor: '#cc5500', borderRadius: '16px'};
+
   return (
     <div className="LoginPage">
-      <header className="LoginPage-header">
-        <Box component="loginBox" sx={{p:5, bgcolor: '#e0e0e0', borderRadius: '25px'}}>
+      
+      <Box component="loginBox" sx={{p:5, bgcolor: '#e0e0e0', borderRadius: '25px'}}>
         <div>
           <div>
             <TextField required id="username" label="Username" variant="outlined" margin="normal"/>
@@ -31,10 +33,10 @@ function LoginPage() {
           </div>
           <div class="row">
             <div class="column">
-              <Button variant="contained" onClick={sayHello} sx={{marginTop: 1, minWidth: 120, bgcolor: '#cc5500', borderRadius: '16px'}}>Login</Button>
+              <Button variant="contained" onClick={sayHello} sx={buttonstyle}>Login</Button>
             </div>
             <div class="column">
-              <Button variant="contained" onClick={navigateToSignUpPage} sx={{marginTop: 1, minWidth: 120, bgcolor: '#cc5500', borderRadius: '16px'}}>SignUp</Button>
+              <Button variant="contained" onClick={navigateToSignUpPage} sx={buttonstyle}>SignUp</Button>
             </div>
           </div>
           <div>
@@ -43,9 +45,8 @@ function LoginPage() {
             </p>
           </div>
         </div>
-        </Box>
+      </Box>
 
-      </header>
     </div>
   );
 }

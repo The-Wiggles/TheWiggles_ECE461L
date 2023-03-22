@@ -6,6 +6,14 @@ import { Button } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 // import { Link } from "react-router-dom";
 
+const buttonstyle = 
+{
+  marginTop: 1, 
+  minWidth: 125, 
+  bgcolor: '#cc5500', 
+  borderRadius: '16px'
+};
+
 function SignupPage() {
 
     let navigate = useNavigate();
@@ -31,10 +39,10 @@ function SignupPage() {
       console.log(result);
     }
 
+
     return (
         <div className="SignupPage">
-          <header className="SignupPage-header">
-            <Box component="signupBox" sx={{p:5, bgcolor: '#e0e0e0', borderRadius: '25px'}}>
+          <Box component="signupBox" sx={{p:5, bgcolor: '#e0e0e0', borderRadius: '25px'}}>
             <div>
               <div>
                 <TextField required id="username" label="Username" variant="outlined" margin="normal"/>
@@ -43,8 +51,8 @@ function SignupPage() {
                 <TextField required id="password" label="Password" variant="outlined" margin="dense"/>
               </div>
             <div>
-                <Button variant="contained" onClick={addUser} sx={{marginTop: 1, minWidth: 125, bgcolor: '#cc5500', borderRadius: '16px'}}>SIGN UP</Button>
-                <Button variant="contained" onClick={navigateToLoginPage} sx={{marginTop: 1, minWidth: 125, bgcolor: '#cc5500', borderRadius: '16px'}}>Go Back!!</Button>
+                <Button variant="contained" onClick={addUser} sx={buttonstyle}>SIGN UP</Button>
+                <Button variant="contained" onClick={navigateToLoginPage} sx={buttonstyle}>Go Back!!</Button>
             </div>
               <div>
                 <p>
@@ -52,8 +60,7 @@ function SignupPage() {
                 </p>
               </div>
             </div>
-            </Box>
-          </header>
+          </Box>
         </div>
       );
 }
