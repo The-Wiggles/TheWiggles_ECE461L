@@ -41,9 +41,6 @@ function LoginPage() {
             <p>
               Here is where we will place our login screen to start :) 
             </p>
-            <p>
-              test 
-            </p>
           </div>
         </div>
         </Box>
