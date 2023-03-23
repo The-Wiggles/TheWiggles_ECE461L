@@ -16,10 +16,23 @@ function LoginPage() {
   let navigate = useNavigate();
 
   // Testing function
-  function login() {
+  async function login() {
     let userid_val = document.getElementById("userid").value;
     let password_val = document.getElementById("password").value;
-    
+    // check for blanks
+    const user_data = {userid: userid_val, password: password_val};
+    const fetch_options = {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json', 'Login': true},
+      body: JSON.stringify(user_data)
+    }
+    const response = await fetch('/users', fetch_options);
+    const response_body = await response.json();
+    console.log(response_body)
+    if(response.status !== 200){ alert("Invalid login");}
+
+    let login_userid = response_body['userid'];
+    // redirect to page, and pass login_userid as state?
   }
 
   // navigate to sign up page

@@ -32,17 +32,17 @@ def page_not_found(e):
 def test():
     return 'Hello, World'
 
-@app.route('/users', methods=['POST', 'GET'])
+@app.route('/users', methods=['POST'])
 def user():
-    if request.method == 'POST':
-        return add_user()
-    elif request.method == 'GET':
-        return login()
-    else:
-        return "uhhh" #TODO: CHANGE THIS TO PROPER ERROR RESPONSE
+
+    if 'Login' in request.headers:
+        if request.headers['Login'] == "true":
+            return user_login()
+
+    return user_add()
     
 
-def add_user():
+def user_add():
     request_data = request.get_json() # request must have application/json content type
     userid = request_data['userid']
     password = request_data['password']
@@ -56,7 +56,7 @@ def add_user():
     resp = make_response(jsonify(data), status_code)
     return resp
 
-def login():
+def user_login():
     request_data = request.get_json()
     userid = request_data['userid']
     password = request_data['password']
@@ -69,7 +69,7 @@ def login():
         data.update({"userid": userid})
     else:
         data = {"status": "failure"}
-        status_code = 400
+        status_code = 401
 
     resp = make_response(jsonify(data), status_code)
     return resp
