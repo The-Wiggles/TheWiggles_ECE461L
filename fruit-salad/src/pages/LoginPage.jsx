@@ -16,8 +16,10 @@ function LoginPage() {
   let navigate = useNavigate();
 
   // Testing function
-  function sayHello() {
-    alert('This button works, but still havent added form submission!');
+  function login() {
+    let userid_val = document.getElementById("userid").value;
+    let password_val = document.getElementById("password").value;
+    
   }
 
   // navigate to sign up page
@@ -39,7 +41,7 @@ function LoginPage() {
           </div>
 
           <div className="row">
-            <Button variant="contained" onClick={sayHello} sx={buttonstyle}>Login</Button>
+            <Button variant="contained" onClick={login} sx={buttonstyle}>Login</Button>
             <Button variant="contained" onClick={navigateToSignUpPage} sx={buttonstyle}>SignUp</Button>
           </div>
 

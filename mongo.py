@@ -30,16 +30,23 @@ def login(userid, password):
 
     user = users.find_one({"userid" : userid})
 
+    ret = 0
+
     if user == None:
-        return 'userid not found'
+        ret = 1
+        client.close()
+        return ret
     
     login_pass_encrypted = cipher.encrypt(password, 2, 1)
     db_pass_encrypted = user['password']
 
     if login_pass_encrypted == db_pass_encrypted:
-        return 'login success'
+        ret = 0
     else:
-        return 'login fail'
+        ret = 1
+    
+    client.close()
+    return ret
 
 
 def addNewProject(name, description, pid):
@@ -53,8 +60,8 @@ def addNewProject(name, description, pid):
     if projects.find_one({"pid" : pid}):
         ret = 1
     else:
-        new_projects_doc = {"name": name, "description": description, "pid": pid, "HWSet1_qty": 0, "HWSet2_qty": 0}
-        projects.insert_one(new_projects_doc)
+        new_project_doc = {"name": name, "description": description, "pid": pid, "HWSet1_qty": 0, "HWSet2_qty": 0}
+        projects.insert_one(new_project_doc)
 
 
     client.close()

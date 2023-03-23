@@ -32,7 +32,16 @@ def page_not_found(e):
 def test():
     return 'Hello, World'
 
-@app.route('/users', methods=['POST'])
+@app.route('/users', methods=['POST', 'GET'])
+def user():
+    if request.method == 'POST':
+        return add_user()
+    elif request.method == 'GET':
+        return login()
+    else:
+        return "uhhh" #TODO: CHANGE THIS TO PROPER ERROR RESPONSE
+    
+
 def add_user():
     request_data = request.get_json() # request must have application/json content type
     userid = request_data['userid']
@@ -41,13 +50,29 @@ def add_user():
     
     data = {"status": "success"}
     status_code = 201
-    if(result != 0):
+    if result != 0:
         data['status'] = "failure"
         status_code = 400
     resp = make_response(jsonify(data), status_code)
-    
     return resp
 
+def login():
+    request_data = request.get_json()
+    userid = request_data['userid']
+    password = request_data['password']
+    result = mongo.login(userid,password)
+
+    data = {"status": "success"}
+    status_code = 200
+
+    if result == 0:
+        data.update({"userid": userid})
+    else:
+        data = {"status": "failure"}
+        status_code = 400
+
+    resp = make_response(jsonify(data), status_code)
+    return resp
 
 @app.route('/projects', methods=['POST'])
 def add_project():
