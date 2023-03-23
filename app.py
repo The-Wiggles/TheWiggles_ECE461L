@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, make_response
 from flask.helpers import send_from_directory
 
 import mongo
@@ -35,11 +35,36 @@ def test():
 @app.route('/users', methods=['POST'])
 def add_user():
     request_data = request.get_json() # request must have application/json content type
-    user = request_data['user']
+    userid = request_data['userid']
     password = request_data['password']
-    result = mongo.addNewUser(user,password)
-    # TODO: return http response codes
-    return result
+    result = mongo.addNewUser(userid,password)
+    
+    data = {"status": "success"}
+    status_code = 201
+    if(result != 0):
+        data['status'] = "failure"
+        status_code = 400
+    resp = make_response(jsonify(data), status_code)
+    
+    return resp
+
+
+@app.route('/projects', methods=['POST'])
+def add_project():
+    request_data = request.get_json() # request must have application/json content type
+    name = request_data['name']
+    description = request_data['description']
+    pid = request_data['pid']
+    result = mongo.addNewProject(name, description, pid)
+    
+    data = {"status": "success"}
+    status_code = 201
+    if(result != 0):
+        data['status'] = "failure"
+        status_code = 400
+    resp = make_response(jsonify(data), status_code)
+    
+    return resp
 
 if __name__ == '__main__':
     app.run()

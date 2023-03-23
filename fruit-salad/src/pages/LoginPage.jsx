@@ -34,7 +34,7 @@ function LoginPage() {
           <p style={{marginTop: 0}}>Welcome to Fruit Salad Hardware Management</p>
 
           <div className="LoginFieldGroup">
-            <TextField required id="username" label="Username" variant="outlined"/>
+            <TextField required id="userid" label="UserID" variant="outlined"/>
             <TextField required id="password" label="Password" variant="outlined"/>
           </div>
 

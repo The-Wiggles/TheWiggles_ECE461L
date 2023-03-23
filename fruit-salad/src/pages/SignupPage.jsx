@@ -26,16 +26,15 @@ function SignupPage() {
       let userid_val = document.getElementById("userid").value;
       let password_val = document.getElementById("password").value;
       // check for blanks
-      const user_data = {user: userid_val, password: password_val};
+      const user_data = {userid: userid_val, password: password_val};
       const fetch_options = {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify(user_data)
       }
       const response = await fetch('/users', fetch_options);
-      const result = await response.text();
-      alert(result);
-      console.log(result);
+      const response_body = await response.json();
+      console.log(response_body)
     }
 
 
