@@ -32,12 +32,13 @@ def page_not_found(e):
 def test():
     return 'Hello, World'
 
-@app.route('/add_user', methods=['POST'])
+@app.route('/users', methods=['POST'])
 def add_user():
-    request_data = request.get_json(); # request must have application/json content type
+    request_data = request.get_json() # request must have application/json content type
     user = request_data['user']
     password = request_data['password']
     result = mongo.addNewUser(user,password)
+    # TODO: return http response codes
     return result
 
 if __name__ == '__main__':

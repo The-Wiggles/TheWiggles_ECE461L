@@ -8,7 +8,6 @@ import { useNavigate } from 'react-router-dom';
 
 const buttonstyle = 
 {
-  marginTop: 1, 
   minWidth: 125, 
   bgcolor: '#cc5500', 
   borderRadius: '16px'
@@ -24,16 +23,16 @@ function SignupPage() {
     }
 
     async function addUser() {
-      let username_val = document.getElementById("username").value;
+      let userid_val = document.getElementById("userid").value;
       let password_val = document.getElementById("password").value;
       // check for blanks
-      const user_data = {user: username_val, password: password_val};
+      const user_data = {user: userid_val, password: password_val};
       const fetch_options = {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify(user_data)
       }
-      const response = await fetch('/add_user', fetch_options);
+      const response = await fetch('/users', fetch_options);
       const result = await response.text();
       alert(result);
       console.log(result);
@@ -42,10 +41,10 @@ function SignupPage() {
 
     return (
         <div className="SignupPage">
-          <Box component="signupBox" sx={{p:5, bgcolor: '#e0e0e0', borderRadius: '25px'}}>
+          <Box sx={{p:5, bgcolor: '#e0e0e0', borderRadius: '25px'}}>
             <div>
               <div>
-                <TextField required id="username" label="Username" variant="outlined" margin="normal"/>
+                <TextField required id="userid" label="UserID" variant="outlined" margin="normal"/>
               </div>
               <div>
                 <TextField required id="password" label="Password" variant="outlined" margin="dense"/>

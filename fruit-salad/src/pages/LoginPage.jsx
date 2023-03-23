@@ -1,8 +1,15 @@
 import './../css/LoginPage.css';
-import TextField from '@mui/material/TextField'
-import Box from '@mui/material/Box'
-import { Button } from '@mui/material';
+
+import { Box, Button, TextField } from '@mui/material';
+
 import { useNavigate } from 'react-router-dom';
+
+const buttonstyle = 
+{
+  minWidth: 125, 
+  bgcolor: '#cc5500', 
+  borderRadius: '16px'
+};
 
 function LoginPage() {
 
@@ -18,33 +25,25 @@ function LoginPage() {
     navigate('/SignupPage');
   }
 
-  const buttonstyle = {marginTop: 1, minWidth: 120, bgcolor: '#cc5500', borderRadius: '16px'};
 
   return (
     <div className="LoginPage">
       
-      <Box component="loginBox" sx={{p:5, bgcolor: '#e0e0e0', borderRadius: '25px'}}>
-        <div>
-          <div>
-            <TextField required id="username" label="Username" variant="outlined" margin="normal"/>
+      <Box className="LoginBox" sx={{p:5, bgcolor: '#e0e0e0', borderRadius: '25px'}}>
+
+          <p style={{marginTop: 0}}>Welcome to Fruit Salad Hardware Management</p>
+
+          <div className="LoginFieldGroup">
+            <TextField required id="username" label="Username" variant="outlined"/>
+            <TextField required id="password" label="Password" variant="outlined"/>
           </div>
-          <div>
-            <TextField required id="password" label="Password" variant="outlined" margin="dense"/>
+
+          <div className="row">
+            <Button variant="contained" onClick={sayHello} sx={buttonstyle}>Login</Button>
+            <Button variant="contained" onClick={navigateToSignUpPage} sx={buttonstyle}>SignUp</Button>
           </div>
-          <div class="row">
-            <div class="column">
-              <Button variant="contained" onClick={sayHello} sx={buttonstyle}>Login</Button>
-            </div>
-            <div class="column">
-              <Button variant="contained" onClick={navigateToSignUpPage} sx={buttonstyle}>SignUp</Button>
-            </div>
-          </div>
-          <div>
-            <p>
-              Here is where we will place our login screen to start :) 
-            </p>
-          </div>
-        </div>
+
+
       </Box>
 
     </div>

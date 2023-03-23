@@ -23,17 +23,17 @@
 }
 
 .row {
-  padding-left: 23%;
   display: flex;
-  /* clear: both; */
+  gap: 1em;
+  justify-content: center;
 }
 
-@keyframes LoginPage-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.LoginFieldGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3em;
+  width: 70%;
+  margin: 1em auto 1em;
 }
+
   
