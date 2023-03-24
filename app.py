@@ -91,5 +91,20 @@ def add_project():
     
     return resp
 
+@app.route('/projects', methods=['GET'])
+def get_projects():
+    userid = request.args.get("userid")
+
+    if userid == None:
+        return make_response(jsonify({"status": "failure"}),400)
+    
+    projects = mongo.getProjects(userid)
+
+    if projects == None:
+        return make_response(jsonify({"status": "failure"}),400)
+    
+    return make_response(jsonify(projects), 200)
+
+
 if __name__ == '__main__':
     app.run()

@@ -66,3 +66,18 @@ def addNewProject(name, description, pid):
 
     client.close()
     return ret
+
+def getProjects(userid):
+    client = pymongo.MongoClient(db_connection_string)
+    db = client["fruit-salad"]
+    projects = db["projects"]
+
+    # NEED TO FILTER PROJECTS BASED ON USERID
+    user_projects = []
+    for project in projects.find():
+        project_no_id = project
+        del project_no_id['_id']
+        user_projects.append(project_no_id)
+
+    client.close()
+    return user_projects

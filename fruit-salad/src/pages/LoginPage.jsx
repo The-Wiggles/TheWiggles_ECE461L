@@ -1,4 +1,4 @@
-import './../css/LoginPage.css';
+import '../css/LoginPage.css';
 
 import { Box, Button, TextField } from '@mui/material';
 
@@ -33,6 +33,7 @@ function LoginPage() {
 
     let login_userid = response_body['userid'];
     // redirect to page, and pass login_userid as state?
+    navigate('/UserProjects', {state: {userid: login_userid}});
   }
 
   // navigate to sign up page
