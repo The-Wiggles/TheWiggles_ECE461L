@@ -1,8 +1,6 @@
 import React from 'react';
-import TextField from '@mui/material/TextField'
-import Box from '@mui/material/Box'
-import './../css/SignupPage.css'
-import { Button } from '@mui/material';
+import './../css/Signup.css'
+import { Box, Button, TextField } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 // import { Link } from "react-router-dom";
 

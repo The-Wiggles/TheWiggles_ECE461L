@@ -1,0 +1,33 @@
+.project_container {
+    border: 0.2em solid;
+    background-color: #d7edec;
+    margin: 1em 0;
+    padding: 0.5em 1em;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 2em;
+
+    /*TODO: HOW TO SET MIN WIDTH SO CONTAINER DOESN'T SHRINK TOO MUCH?*/
+
+}
+
+.projectname {
+    font-weight: bold;
+    width: 8em;
+    word-wrap: normal;
+}
+
+.authlist {
+    color: gray;
+    width: 8em;
+    word-wrap: normal;
+}
+
+.project_hwsets {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5em;
+}
+

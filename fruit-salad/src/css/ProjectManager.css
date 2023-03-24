@@ -1,0 +1,17 @@
+.project_manager_container {
+    display: flex;
+    gap: 2em;
+}
+
+.user_projects_container {
+    width: 60em;
+}
+
+.resource_management_section {
+
+}
+
+.resource_management_section > h2 {
+    margin: 0;
+
+}

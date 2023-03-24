@@ -1,7 +1,5 @@
-import '../css/LoginPage.css';
-
+import '../css/Login.css';
 import { Box, Button, TextField } from '@mui/material';
-
 import { useNavigate } from 'react-router-dom';
 
 const buttonstyle = 
@@ -32,7 +30,7 @@ function LoginPage() {
     if(response.status !== 200){ alert("Invalid login");}
 
     let login_userid = response_body['userid'];
-    navigate('/UserProjects', {state: {userid: login_userid}});
+    navigate('/ProjectManager', {state: {userid: login_userid}});
   }
 
   // navigate to sign up page

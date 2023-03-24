@@ -1,0 +1,22 @@
+.hwsetcontainer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 0.7em;
+
+    /* padding: 10px 0; */
+}
+
+.hwsetcontainer > p {
+    margin: 0;
+}
+
+.hwset_name {
+    font-weight: bold;
+}
+
+.hwset_capacitylabel {
+    font-weight: bold;
+    width: 4em;
+}
+
