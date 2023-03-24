@@ -32,7 +32,6 @@ function LoginPage() {
     if(response.status !== 200){ alert("Invalid login");}
 
     let login_userid = response_body['userid'];
-    // redirect to page, and pass login_userid as state?
     navigate('/UserProjects', {state: {userid: login_userid}});
   }
 

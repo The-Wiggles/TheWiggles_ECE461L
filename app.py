@@ -76,10 +76,12 @@ def user_login():
 
 @app.route('/projects', methods=['POST'])
 def add_project():
-    request_data = request.get_json() # request must have application/json content type
+    request_data = request.get_json()
     name = request_data['name']
     description = request_data['description']
     pid = request_data['pid']
+    # TODO: also get the userid of who is adding project?
+    # or, have separate api step of assigning userid to project
     result = mongo.addNewProject(name, description, pid)
     
     data = {"status": "success"}
