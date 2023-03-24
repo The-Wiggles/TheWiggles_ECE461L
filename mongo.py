@@ -71,10 +71,15 @@ def getProjects(userid):
     client = pymongo.MongoClient(db_connection_string)
     db = client["fruit-salad"]
     projects = db["projects"]
-
-    # NEED TO FILTER PROJECTS BASED ON USERID
+    users = db["users"]
+    user = users.find_one({"userid" : userid})
+    if user == None:
+        return None
+    
     user_projects = []
-    for project in projects.find():
+
+    for pid in user['projectlist']:
+        project = projects.find_one({"pid": pid})
         project_no_id = project
         del project_no_id['_id']
         user_projects.append(project_no_id)
