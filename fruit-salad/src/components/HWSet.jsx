@@ -12,26 +12,74 @@ function HWSet(props){
     const [hwset_capacity, set_hwset_capacity] = useState(0);
     const [qty_textfield_val, set_qty_textfield_val] = useState("");
 
-    function check_in(){
+    async function check_in(){
 
-        // CHECK props.active_pid first!
+        if(props.active_pid === ""){
+            alert("Select a project to manage first!");
+            return;
+        }
+
 
         let check_in_qty = parseInt(qty_textfield_val);
         if(check_in_qty < 0 | isNaN(check_in_qty)){
             alert("Invalid QTY");
             return;
         }
-        let new_capacity = hwset_capacity + check_in_qty;
-        if(new_capacity > hwset_capacity){new_capacity = hwset_capacity;}
-        set_hwset_available(new_capacity);
+        
+        const check_in_data = {
+            name: props.hwset_name, 
+            qty: check_in_qty, 
+            pid: props.active_pid
+        };
+        const fetch_options = {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(check_in_data)
+        }
+
+        const checkin_response = await fetch('/hardwaresets/checkin', fetch_options);
+        if(checkin_response.status !== 200){return;}
+
+        const hwset_query_response = await fetch('/hardwaresets?name='+props.hwset_name);
+        const hwset = await hwset_query_response.json();
+
+        set_hwset_available(hwset['available']);
+        set_hwset_capacity(hwset['capacity']);
     }
     
-    function check_out(){
+    async function check_out(){
+
+        if(props.active_pid === ""){
+            alert("Select a project to manage first!");
+            return;
+        }
+
+
         let check_out_qty = parseInt(qty_textfield_val);
         if(check_out_qty < 0 | isNaN(check_out_qty)){
             alert("Invalid QTY");
             return;
         }
+        
+        const check_in_data = {
+            name: props.hwset_name, 
+            qty: check_out_qty, 
+            pid: props.active_pid
+        };
+        const fetch_options = {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(check_in_data)
+        }
+
+        const checkout_response = await fetch('/hardwaresets/checkout', fetch_options);
+        if(checkout_response.status !== 200){return;}
+
+        const hwset_query_response = await fetch('/hardwaresets?name='+props.hwset_name);
+        const hwset = await hwset_query_response.json();
+
+        set_hwset_available(hwset['available']);
+        set_hwset_capacity(hwset['capacity']);
     }
 
 

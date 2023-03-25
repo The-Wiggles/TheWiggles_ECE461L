@@ -26,7 +26,10 @@ function LoginPage() {
     const response = await fetch('/users', fetch_options);
     const response_body = await response.json();
     console.log(response_body)
-    if(response.status !== 200){ alert("Invalid login");}
+    if(response.status !== 200){ 
+      alert("Invalid login");
+      return;
+    }
 
     let login_userid = response_body['userid'];
     navigate('/ProjectManager', {state: {userid: login_userid}});
