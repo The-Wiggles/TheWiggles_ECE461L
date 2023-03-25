@@ -13,7 +13,6 @@ function LoginPage() {
 
   let navigate = useNavigate();
 
-  // Testing function
   async function login() {
     let userid_val = document.getElementById("userid").value;
     let password_val = document.getElementById("password").value;

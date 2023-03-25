@@ -128,8 +128,9 @@ def hwset_checkin():
     request_data = request.get_json()
     hwset_name = request_data['name']
     qty = request_data['qty']
-    result = mongo.hwset_checkin(hwset_name,qty)
-    if result != 0:
+    pid = request_data['pid']
+    result = mongo.hwset_checkin(hwset_name,qty,pid)
+    if result == None:
         return make_response(jsonify({"status": "failure"}), 400)
     return make_response(jsonify({"status": "success"}),200)
 
@@ -138,7 +139,8 @@ def hwset_checkout():
     request_data = request.get_json()
     hwset_name = request_data['name']
     qty = request_data['qty']
-    checked_out = mongo.hwset_checkout(hwset_name,qty)
+    pid = request_data['pid']
+    checked_out = mongo.hwset_checkout(hwset_name,qty,pid)
     if checked_out == None:
         return make_response(jsonify({"status": "failure"}), 400)
     

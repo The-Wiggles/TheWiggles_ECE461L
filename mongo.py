@@ -60,7 +60,14 @@ def addNewProject(name, description, pid):
     if projects.find_one({"pid" : pid}):
         ret = 1
     else:
-        new_project_doc = {"name": name, "description": description, "pid": pid, "HWSet1_qty": 0, "HWSet2_qty": 0}
+        new_project_doc = { "name": name, 
+                            "description": description, 
+                            "pid": pid, 
+                            "hwsets": {
+                                "HWSet1": 0,
+                                "HWSet2": 0
+                            }
+                        }
         projects.insert_one(new_project_doc)
 
 
@@ -93,40 +100,67 @@ def hwset_getstats(name):
     hardware_sets = db["hardware_sets"]
     hwset = hardware_sets.find_one({"name": name})
     if hwset == None:
+        client.close()
         return None
+    
     del hwset['_id']
+
     client.close()
     return hwset
 
-def hwset_checkin(name,qty):
+def hwset_checkin(hwset_name,qty,pid):
     client = pymongo.MongoClient(db_connection_string)
     db = client["fruit-salad"]
     hardware_sets = db["hardware_sets"]
-    hwset = hardware_sets.find_one({"name": name})
-    if hwset == None:
-        client.close()
-        return 1
+    projects = db["projects"]
 
+    hwset = hardware_sets.find_one({"name": hwset_name})
+    project = projects.find_one({"pid": pid})
+
+    if hwset == None or project == None:
+        client.close()
+        return
+
+    # remove from project
+    checked_in_qty = qty
+    project_hwsets = project['hwsets']
+    project_hwset_qty = project_hwsets[hwset_name]
+
+    if checked_in_qty > project_hwset_qty:
+        checked_in_qty = project_hwset_qty
+        project_hwset_qty = 0
+    else:
+        project_hwset_qty -= checked_in_qty
+    
+    project_hwsets[hwset_name] = project_hwset_qty
+    projects.update_one({'pid':pid}, {"$set": {'hwsets': project_hwsets}})
+
+    # add to hwset
     hwset_capacity = hwset['capacity']
     hwset_available = hwset['available']
-    hwset_available += qty
+    hwset_available += checked_in_qty
     if hwset_available > hwset_capacity:
         hwset_available = hwset_capacity
     
-    hardware_sets.update_one({'name':name}, {"$set":{'available':hwset_available}})
+    hardware_sets.update_one({'name':hwset_name}, {"$set":{'available':hwset_available}})
 
     client.close()
     return 0
 
-def hwset_checkout(name,qty):
+def hwset_checkout(hwset_name,qty,pid):
     client = pymongo.MongoClient(db_connection_string)
     db = client["fruit-salad"]
     hardware_sets = db["hardware_sets"]
-    hwset = hardware_sets.find_one({"name": name})
-    if hwset == None:
-        client.close()
-        return None
+    projects = db["projects"]
 
+    hwset = hardware_sets.find_one({"name": hwset_name})
+    project = projects.find_one({"pid": pid})
+
+    if hwset == None or project == None:
+        client.close()
+        return
+
+    # remove from hwset
     hwset_available = hwset['available']
     checked_out = qty
     if qty > hwset_available:
@@ -135,7 +169,16 @@ def hwset_checkout(name,qty):
     else:
         hwset_available -= checked_out
     
-    hardware_sets.update_one({'name':name}, {"$set":{'available':hwset_available}})
+    hardware_sets.update_one({'name':hwset_name}, {"$set":{'available':hwset_available}})
+
+    # add to pid (read, modify, write)
+    project_hwsets = project['hwsets']
+    project_hwset_qty = project_hwsets[hwset_name]
+
+    project_hwset_qty += checked_out
+
+    project_hwsets[hwset_name] = project_hwset_qty
+    projects.update_one({'pid':pid}, {"$set": {'hwsets': project_hwsets}})
 
     client.close()
     return checked_out
