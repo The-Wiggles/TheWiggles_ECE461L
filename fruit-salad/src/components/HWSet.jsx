@@ -45,6 +45,7 @@ function HWSet(props){
 
         set_hwset_available(hwset['available']);
         set_hwset_capacity(hwset['capacity']);
+        props.set_projects_refresh(!props.projects_refresh);
     }
     
     async function check_out(){
@@ -80,6 +81,7 @@ function HWSet(props){
 
         set_hwset_available(hwset['available']);
         set_hwset_capacity(hwset['capacity']);
+        props.set_projects_refresh(!props.projects_refresh); // I have no idea why this works
     }
 
 

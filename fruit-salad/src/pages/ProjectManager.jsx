@@ -13,6 +13,7 @@ function ProjectManager(){
 
     const [project_list, set_project_list] = useState([]);
     const [active_pid, set_active_pid] = useState("");
+    const [projects_refresh, set_projects_refresh] = useState(true)
 
     const get_projects = useCallback(async () => {
         const response = await fetch('/projects?userid='+location.state.userid);
@@ -33,9 +34,10 @@ function ProjectManager(){
         <Project 
             key={project['pid']} 
             pid={project['pid']} 
-            set_active_pid={set_active_pid} 
             name={project['name']} 
             authlist={project['authlist'].join(", ")} 
+            set_active_pid={set_active_pid}
+            projects_refresh={projects_refresh}
         />
     ));
 
@@ -59,17 +61,9 @@ function ProjectManager(){
                         <p>Currently managing <strong>{active_pid}</strong></p>
                     }
 
-                    {/* each hardware set should have some kind of function
-                        that can trigger a refresh for a given project
-                        
-                        maybe in the useEffect, when a global refresh is triggered
-                        filter through the project list and update it's stuff?
-                        idkkkk
-                    */}
-
                     <div className='hwsets_container'>
-                        <HWSet hwset_name="HWSet1" active_pid={active_pid}/>
-                        <HWSet hwset_name="HWSet2" active_pid={active_pid}/>
+                        <HWSet hwset_name="HWSet1" active_pid={active_pid} projects_refresh={projects_refresh} set_projects_refresh={set_projects_refresh} />
+                        <HWSet hwset_name="HWSet2" active_pid={active_pid} projects_refresh={projects_refresh} set_projects_refresh={set_projects_refresh} />
                     </div>
 
                 </div>

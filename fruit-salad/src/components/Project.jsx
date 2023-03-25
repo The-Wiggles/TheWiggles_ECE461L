@@ -14,9 +14,16 @@ function Project(props){
     }
 
     useEffect(() => {
-        // query project
-        // GET /projects?pid=<pid>
-    });
+
+        fetch('/projects?pid='+props.pid).then( (response) => {
+            if(response.status !== 200){return;}
+            return response.json();
+        }).then( (response_body) => {
+            set_hwset1_qty(response_body['hwsets']['HWSet1']);
+            set_hwset2_qty(response_body['hwsets']['HWSet2']);
+        });
+
+    }, [props.projects_refresh, props.pid]);
 
     return(
         <div className="project_container">
