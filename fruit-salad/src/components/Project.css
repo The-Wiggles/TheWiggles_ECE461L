@@ -9,25 +9,29 @@
     align-items: center;
     gap: 2em;
 
-    /*TODO: HOW TO SET MIN WIDTH SO CONTAINER DOESN'T SHRINK TOO MUCH?*/
+}
 
+.name_pid_group {
+    display: flex;
+    flex-direction: column;
+}
+
+.pid {
+    margin-top: 0;
+    font-size: smaller;
 }
 
 .projectname {
     font-weight: bold;
+    font-size: large;
     width: 8em;
     word-wrap: normal;
+    margin-bottom: 0;
 }
 
 .authlist {
     color: gray;
-    width: 8em;
+    width: 10em;
     word-wrap: normal;
-}
-
-.project_hwsets {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5em;
 }
 

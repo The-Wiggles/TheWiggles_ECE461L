@@ -11,15 +11,14 @@ function Project(props){
     }
 
     return(
-        <div class="project_container">
-
-            <p class="projectname">{props.name}</p>
-            <p class="authlist">{props.authlist}</p>
-
-            <div class="project_hwsets">
-                <HWSet name="HWSet1" />
-                <HWSet name="HWSet2" />
+        <div className="project_container">
+            
+            <div className="name_pid_group">
+                <p className="projectname">{props.name}</p>
+                <p className="pid">pid: {props.pid}</p>
             </div>
+            
+            <p className="authlist">{props.authlist}</p>
 
             <Button
                 variant="contained"

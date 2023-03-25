@@ -4,6 +4,7 @@ import { useLocation } from 'react-router-dom';
 import { useState, useEffect, useCallback } from 'react';
 
 import Project from '../components/Project'
+import HWSet from '../components/HWSet';
 
 import { TextField } from '@mui/material';
 
@@ -45,12 +46,19 @@ function ProjectManager(){
                 </div>
 
                 <div className='resource_management_section'>
+
                     <h2>resource management</h2>
+                    
                     {active_project === "" ?
                         <p>No project selected</p> :
                         <p>Currently managing <strong>{active_project}</strong></p>
                     }
-                    <TextField label="blep"/>
+
+                    <div>
+                        <HWSet name="HWSet1" />
+                        <HWSet name="HWSet2" />
+                    </div>
+
                 </div>
 
             </div>
