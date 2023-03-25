@@ -30,7 +30,13 @@ function ProjectManager(){
     }, [get_projects]);
     
     const project_list_elements = project_list.map((project) => (
-        <Project key={project['pid']} pid={project['pid']} manage_state_function={set_active_pid} name={project['name']} authlist={project['authlist'].join(", ")} />
+        <Project 
+            key={project['pid']} 
+            pid={project['pid']} 
+            set_active_pid={set_active_pid} 
+            name={project['name']} 
+            authlist={project['authlist'].join(", ")} 
+        />
     ));
 
     return(
@@ -52,6 +58,14 @@ function ProjectManager(){
                         <p>No project selected</p> :
                         <p>Currently managing <strong>{active_pid}</strong></p>
                     }
+
+                    {/* each hardware set should have some kind of function
+                        that can trigger a refresh for a given project
+                        
+                        maybe in the useEffect, when a global refresh is triggered
+                        filter through the project list and update it's stuff?
+                        idkkkk
+                    */}
 
                     <div className='hwsets_container'>
                         <HWSet hwset_name="HWSet1" active_pid={active_pid}/>

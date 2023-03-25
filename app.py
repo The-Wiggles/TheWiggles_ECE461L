@@ -95,6 +95,11 @@ def add_project():
 
 @app.route('/projects', methods=['GET'])
 def get_projects():
+
+    pid = request.args.get("pid")
+    if pid != None:
+        return query_project(pid)
+    
     userid = request.args.get("userid")
 
     if userid == None:
@@ -107,6 +112,12 @@ def get_projects():
     
     return make_response(jsonify(projects), 200)
 
+
+def query_project(pid):
+    project = mongo.queryProject(pid)
+    if project == None:
+        return make_response(jsonify({"status": "failure"}),400)
+    return make_response(jsonify(project), 200)
 
 @app.route('/hardwaresets', methods=['GET'])
 def hwset_query():

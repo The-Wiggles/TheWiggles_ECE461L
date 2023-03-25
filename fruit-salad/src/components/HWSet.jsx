@@ -70,7 +70,7 @@ function HWSet(props){
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify(check_in_data)
-        }
+        };
 
         const checkout_response = await fetch('/hardwaresets/checkout', fetch_options);
         if(checkout_response.status !== 200){return;}

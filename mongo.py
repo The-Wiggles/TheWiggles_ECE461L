@@ -74,6 +74,17 @@ def addNewProject(name, description, pid):
     client.close()
     return ret
 
+def queryProject(pid):
+    client = pymongo.MongoClient(db_connection_string)
+    db = client["fruit-salad"]
+    projects = db["projects"]
+
+    project = projects.find_one({"pid": pid})
+    del project['_id']
+    client.close()
+    return project
+    
+
 def getProjects(userid):
     client = pymongo.MongoClient(db_connection_string)
     db = client["fruit-salad"]
