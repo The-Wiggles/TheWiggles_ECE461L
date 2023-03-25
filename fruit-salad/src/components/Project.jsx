@@ -1,8 +1,6 @@
 import './Project.css';
-import HWSet from './HWSet'
 
 import Button from '@mui/material/Button';
-import { useState } from 'react';
 
 function Project(props){
 
@@ -25,7 +23,6 @@ function Project(props){
                 onClick={project_manage_click}
                 sx={{
                     bgcolor: "#00AA00",
-                    height: "60px",
                     marginLeft: "auto"
                 }}>
             MANAGE

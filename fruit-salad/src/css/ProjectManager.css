@@ -1,6 +1,11 @@
+.welcome_header {
+    margin-left: 3%;
+}
+
 .project_manager_container {
     display: flex;
     gap: 2em;
+    margin-left: 3%;
 }
 
 .user_projects_container {
@@ -9,5 +14,10 @@
 
 .resource_management_section > h2 {
     margin: 0;
+}
 
+.hwsets_container {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
 }

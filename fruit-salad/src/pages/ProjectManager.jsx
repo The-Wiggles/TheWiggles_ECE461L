@@ -6,14 +6,13 @@ import { useState, useEffect, useCallback } from 'react';
 import Project from '../components/Project'
 import HWSet from '../components/HWSet';
 
-import { TextField } from '@mui/material';
 
 function ProjectManager(){
 
     const location = useLocation();
 
     const [project_list, set_project_list] = useState([]);
-    const [active_project, set_active_project] = useState("");
+    const [active_pid, set_active_pid] = useState("");
 
     const get_projects = useCallback(async () => {
         const response = await fetch('/projects?userid='+location.state.userid);
@@ -31,13 +30,13 @@ function ProjectManager(){
     }, [get_projects]);
     
     const project_list_elements = project_list.map((project) => (
-        <Project key={project['pid']} pid={project['pid']} manage_state_function={set_active_project} name={project['name']} authlist={project['authlist'].join(", ")} />
+        <Project key={project['pid']} pid={project['pid']} manage_state_function={set_active_pid} name={project['name']} authlist={project['authlist'].join(", ")} />
     ));
 
     return(
         <div>
 
-            <h1>Welcome, {location.state.userid}!</h1>
+            <h1 className="welcome_header">Welcome, {location.state.userid}!</h1>
 
             <div className="project_manager_container">
 
@@ -47,16 +46,16 @@ function ProjectManager(){
 
                 <div className='resource_management_section'>
 
-                    <h2>resource management</h2>
-                    
-                    {active_project === "" ?
+                    <h2>Resource Management</h2>
+
+                    {active_pid === "" ?
                         <p>No project selected</p> :
-                        <p>Currently managing <strong>{active_project}</strong></p>
+                        <p>Currently managing <strong>{active_pid}</strong></p>
                     }
 
-                    <div>
-                        <HWSet name="HWSet1" />
-                        <HWSet name="HWSet2" />
+                    <div className='hwsets_container'>
+                        <HWSet hwset_name="HWSet1" active_pid={active_pid}/>
+                        <HWSet hwset_name="HWSet2" active_pid={active_pid}/>
                     </div>
 
                 </div>
