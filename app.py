@@ -108,5 +108,41 @@ def get_projects():
     return make_response(jsonify(projects), 200)
 
 
+@app.route('/hardwaresets', methods=['GET'])
+def hwset_query():
+    hwset_name = request.args.get("name")
+
+    if hwset_name == None:
+        return make_response(jsonify({"status": "failure"}), 400)
+    
+    hwset = mongo.hwset_getstats(hwset_name)
+
+    if hwset == None:
+        return make_response(jsonify({"status": "failure"}), 400)
+    
+    return make_response(jsonify(hwset), 200)
+
+
+@app.route('/hardwaresets/checkin', methods=['POST'])
+def hwset_checkin():
+    request_data = request.get_json()
+    hwset_name = request_data['name']
+    qty = request_data['qty']
+    result = mongo.hwset_checkin(hwset_name,qty)
+    if result != 0:
+        return make_response(jsonify({"status": "failure"}), 400)
+    return make_response(jsonify({"status": "success"}),200)
+
+@app.route('/hardwaresets/checkout', methods=['POST'])
+def hwset_checkout():
+    request_data = request.get_json()
+    hwset_name = request_data['name']
+    qty = request_data['qty']
+    checked_out = mongo.hwset_checkout(hwset_name,qty)
+    if checked_out == None:
+        return make_response(jsonify({"status": "failure"}), 400)
+    
+    return make_response(jsonify({"checked_out": checked_out}), 200)
+
 if __name__ == '__main__':
     app.run()

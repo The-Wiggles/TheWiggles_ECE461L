@@ -7,8 +7,6 @@ import { useState } from 'react';
 function Project(props){
 
     function project_manage_click(){
-        console.log(props.name + " manage button clicked");
-        // get setState function from props? dk if that's allowed tbh but we shall see
         props.manage_state_function(props.pid);
     }
 

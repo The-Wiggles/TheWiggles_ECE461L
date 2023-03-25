@@ -46,7 +46,10 @@ function ProjectManager(){
 
                 <div className='resource_management_section'>
                     <h2>resource management</h2>
-                    <p>{active_project === "" ? "No project selected" : "Currently managing "+active_project}</p>
+                    {active_project === "" ?
+                        <p>No project selected</p> :
+                        <p>Currently managing <strong>{active_project}</strong></p>
+                    }
                     <TextField label="blep"/>
                 </div>
 

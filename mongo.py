@@ -86,3 +86,56 @@ def getProjects(userid):
 
     client.close()
     return user_projects
+
+def hwset_getstats(name):
+    client = pymongo.MongoClient(db_connection_string)
+    db = client["fruit-salad"]
+    hardware_sets = db["hardware_sets"]
+    hwset = hardware_sets.find_one({"name": name})
+    if hwset == None:
+        return None
+    del hwset['_id']
+    client.close()
+    return hwset
+
+def hwset_checkin(name,qty):
+    client = pymongo.MongoClient(db_connection_string)
+    db = client["fruit-salad"]
+    hardware_sets = db["hardware_sets"]
+    hwset = hardware_sets.find_one({"name": name})
+    if hwset == None:
+        client.close()
+        return 1
+
+    hwset_capacity = hwset['capacity']
+    hwset_available = hwset['available']
+    hwset_available += qty
+    if hwset_available > hwset_capacity:
+        hwset_available = hwset_capacity
+    
+    hardware_sets.update_one({'name':name}, {"$set":{'available':hwset_available}})
+
+    client.close()
+    return 0
+
+def hwset_checkout(name,qty):
+    client = pymongo.MongoClient(db_connection_string)
+    db = client["fruit-salad"]
+    hardware_sets = db["hardware_sets"]
+    hwset = hardware_sets.find_one({"name": name})
+    if hwset == None:
+        client.close()
+        return None
+
+    hwset_available = hwset['available']
+    checked_out = qty
+    if qty > hwset_available:
+        checked_out = hwset_available
+        hwset_available = 0
+    else:
+        hwset_available -= checked_out
+    
+    hardware_sets.update_one({'name':name}, {"$set":{'available':hwset_available}})
+
+    client.close()
+    return checked_out
