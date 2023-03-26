@@ -41,7 +41,6 @@ def user():
 
     return user_add()
     
-
 def user_add():
     request_data = request.get_json() # request must have application/json content type
     userid = request_data['userid']
@@ -98,6 +97,17 @@ def add_project():
             status_code = 400
 
     return resp
+
+@app.route('/projects', methods=['PUT'])
+def add_to_authlist():
+    userid = request.args.get("userid")
+    pid = request.args.get("pid")
+    result = mongo.project_add_authorized_user(pid, userid)
+    if result == None:
+        return make_response(jsonify({"status": "failure"}),400)
+    return make_response(jsonify({"status": "success"}),200)
+
+
 
 @app.route('/projects', methods=['GET'])
 def get_projects():

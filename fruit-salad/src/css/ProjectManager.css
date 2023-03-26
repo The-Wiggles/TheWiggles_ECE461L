@@ -27,3 +27,8 @@
     flex-direction: column;
     gap: 1em;
 }
+
+
+.project_add_container {
+    margin-bottom: 1em;
+}

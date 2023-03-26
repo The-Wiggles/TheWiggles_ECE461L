@@ -95,10 +95,17 @@ def project_add_authorized_user(pid, userid):
     if project == None or user == None:
         client.close()
         return
-    user_projlist = user['projectlist']
-    user_projlist.append(pid)
-    users.update_one({'userid': userid}, {'$set': {"projectlist": user_projlist}})
     
+    user_projectlist = user['projectlist']
+    if pid not in user_projectlist:
+        user_projectlist.append(pid)
+    users.update_one({'userid': userid}, {'$set': {"projectlist": user_projectlist}})
+    
+    project_authlist = project['authlist']
+    if userid not in project_authlist:
+        project_authlist.append(userid)
+    projects.update_one({'pid':pid}, {'$set': {'authlist': project_authlist}})
+
     client.close()
     return 0
 

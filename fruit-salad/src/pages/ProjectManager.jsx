@@ -43,7 +43,22 @@ function ProjectManager(){
 
         const response = await fetch('/projects', fetch_options);
         if(response.status !== 201){
-            alert("Invalid ")
+            alert("Invalid");
+            return;
+        }
+
+        get_projects().then((projects) => {
+            set_project_list(projects);
+        });
+    }
+
+    const add_to_authlist = async () => {
+        let pid = active_pid;
+        let userid = document.getElementById("userid_textfield").value;
+        const response = await fetch('/projects?pid='+pid+'&userid='+userid, {method: 'PUT'});
+        if(response.status !== 200){
+            alert("Invalid");
+            return;
         }
 
         get_projects().then((projects) => {
@@ -112,7 +127,7 @@ function ProjectManager(){
                         </div>
                         <div class="project_authlist_container">
                             <TextField required id="userid_textfield" label="UserID" />
-                            <Button variant="contained">Add User</Button>
+                            <Button variant="contained" onClick={add_to_authlist}>Add User</Button>
                         </div>
                     </div>
 
