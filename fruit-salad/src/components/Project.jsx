@@ -32,6 +32,7 @@ function Project(props){
             <div className="name_pid_group">
                 <p className="projectname">{props.name}</p>
                 <p className="pid">pid: {props.pid}</p>
+                <p className="description">{props.description}</p>
             </div>
             
             <p className="authlist">{props.authlist}</p>

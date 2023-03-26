@@ -79,6 +79,7 @@ function ProjectManager(){
             key={project['pid']} 
             pid={project['pid']} 
             name={project['name']} 
+            description={project['description']}
             authlist={project['authlist'].join(", ")} 
             set_active_pid={set_active_pid}
             projects_refresh={projects_refresh}
