@@ -12,8 +12,14 @@
     width: 40em;
 }
 
-.resource_management_section > h2 {
-    margin: 0;
+.utilities_section {
+    display: flex;
+    flex-direction: column;
+    gap: 2em;
+}
+
+.utilities_section > div > h2 {
+    margin-top: 0;
 }
 
 .hwsets_container {

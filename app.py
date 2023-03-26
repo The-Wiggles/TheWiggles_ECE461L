@@ -80,9 +80,9 @@ def add_project():
     name = request_data['name']
     description = request_data['description']
     pid = request_data['pid']
-    # TODO: also get the userid of who is adding project?
-    # or, have separate api step of assigning userid to project
-    result = mongo.addNewProject(name, description, pid)
+    authlist = request_data['authlist']
+
+    result = mongo.addNewProject(name, description, pid, authlist)
     
     data = {"status": "success"}
     status_code = 201
@@ -91,6 +91,12 @@ def add_project():
         status_code = 400
     resp = make_response(jsonify(data), status_code)
     
+    if status_code == 201:
+        add_authorized_result = mongo.project_add_authorized_user(pid, authlist[0])
+        if add_authorized_result == None:
+            data['status'] = "failure"
+            status_code = 400
+
     return resp
 
 @app.route('/projects', methods=['GET'])

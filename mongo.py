@@ -49,8 +49,7 @@ def login(userid, password):
     return ret
 
 
-def addNewProject(name, description, pid):
-    #TODO: authlist???
+def addNewProject(name, description, pid, authlist):
     client = pymongo.MongoClient(db_connection_string)
     db = client["fruit-salad"]
     projects = db["projects"] # users collection under fruit-salad database
@@ -62,7 +61,8 @@ def addNewProject(name, description, pid):
     else:
         new_project_doc = { "name": name, 
                             "description": description, 
-                            "pid": pid, 
+                            "pid": pid,
+                            "authlist": authlist, 
                             "hwsets": {
                                 "HWSet1": 0,
                                 "HWSet2": 0
@@ -84,6 +84,23 @@ def queryProject(pid):
     client.close()
     return project
     
+def project_add_authorized_user(pid, userid):
+    client = pymongo.MongoClient(db_connection_string)
+    db = client["fruit-salad"]
+    projects = db["projects"]
+    users = db["users"]
+
+    project = projects.find_one({'pid': pid})
+    user = users.find_one({'userid': userid})
+    if project == None or user == None:
+        client.close()
+        return
+    user_projlist = user['projectlist']
+    user_projlist.append(pid)
+    users.update_one({'userid': userid}, {'$set': {"projectlist": user_projlist}})
+    
+    client.close()
+    return 0
 
 def getProjects(userid):
     client = pymongo.MongoClient(db_connection_string)

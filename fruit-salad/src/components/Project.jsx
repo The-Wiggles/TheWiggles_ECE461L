@@ -24,6 +24,7 @@ function Project(props){
         });
 
     }, [props.projects_refresh, props.pid]);
+    // somehow the hwset quantities update even without the props.projects_refresh dependency, so I have no idea what's going on
 
     return(
         <div className="project_container">
