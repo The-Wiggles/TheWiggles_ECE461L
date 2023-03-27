@@ -25,8 +25,7 @@ def serve():
 
 @app.errorhandler(404)
 def page_not_found(e):
-    pass
-    # TODO: DO STUFF, SERVE 404 PAGE, OR REDIRECTOTO INDEX?
+    return app.send_static_file('index.html')
 
 @app.route('/test')
 def test():

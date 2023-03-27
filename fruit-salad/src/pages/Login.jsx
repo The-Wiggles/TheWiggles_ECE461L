@@ -37,7 +37,7 @@ function LoginPage() {
 
   // navigate to sign up page
   function navigateToSignUpPage() {
-    navigate('/SignupPage');
+    navigate('/Signup');
   }
 
 
