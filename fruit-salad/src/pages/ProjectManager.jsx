@@ -159,7 +159,7 @@ function ProjectManager(){
                         </div>
 
                         <div>
-                            <Button variant="contained" onClick={log_out}>Logout</Button>
+                            <Button variant="contained" onClick={log_out} sx={{bgcolor: "darkred"}}>Logout</Button>
                         </div>
 
                     </div>
