@@ -55,6 +55,7 @@ function ProjectManager(){
     const add_to_authlist = async () => {
         let pid = active_pid;
         let userid = document.getElementById("userid_textfield").value;
+
         const response = await fetch('/projects?pid='+pid+'&userid='+userid, {method: 'PUT'});
         if(response.status !== 200){
             alert("Invalid");
@@ -65,6 +66,22 @@ function ProjectManager(){
             set_project_list(projects);
         });
     }
+
+    const join_project = async () => {
+        let pid = document.getElementById("pid_textfield").value;
+        let userid = location.state.userid;
+
+        const response = await fetch('/projects?pid='+pid+'&userid='+userid, {method: 'PUT'});
+        if(response.status !== 200){
+            alert("Invalid");
+            return;
+        }
+
+        get_projects().then((projects) => {
+            set_project_list(projects);
+        });
+    }
+
 
     useEffect(() => {
 
@@ -100,6 +117,7 @@ function ProjectManager(){
                 <div className='utilities_section'>
 
                     <div>
+                        
                         <h2>Resource Management</h2>
 
                         {active_pid === "" ?
@@ -111,25 +129,30 @@ function ProjectManager(){
                             <HWSet hwset_name="HWSet1" active_pid={active_pid} projects_refresh={projects_refresh} set_projects_refresh={set_projects_refresh} />
                             <HWSet hwset_name="HWSet2" active_pid={active_pid} projects_refresh={projects_refresh} set_projects_refresh={set_projects_refresh} />
                         </div>
+
                     </div>
 
                     <div>
-                        <h2> Project Management</h2>
-                        {/* TODO: need to display description for projects */}
 
-                        {/* stuff to create new project | add new Project to database, update project_list? or somehow trigger useEffect */}
-                        {/* maybe trigger with the same projects_refresh state? */}
-                        {/* stuff to add users to project's authlist | will need some useEffect stuff like hwsets? */}
+                        <h2> Project Management</h2>
+
                         <div class="project_add_container">
                             <TextField required id="project_name_textfield" label="Name" />
                             <TextField required id="project_pid_textfield" label="ProjectID" />
                             <TextField required id="project_desc_textfield" label="Description" />
-                            <Button variant="contained" onClick={add_project}>Add Project</Button>
+                            <Button variant="contained" onClick={add_project}>Create Project</Button>
                         </div>
+
+                        <div class="project_join_container">
+                            <TextField required id="pid_textfield" label="ProjectID" />
+                            <Button variant="contained" onClick={join_project}>Join Project</Button>
+                        </div>
+
                         <div class="project_authlist_container">
                             <TextField required id="userid_textfield" label="UserID" />
                             <Button variant="contained" onClick={add_to_authlist}>Add User</Button>
                         </div>
+
                     </div>
 
                 </div>

@@ -107,7 +107,6 @@ def add_to_authlist():
     return make_response(jsonify({"status": "success"}),200)
 
 
-
 @app.route('/projects', methods=['GET'])
 def get_projects():
 
@@ -133,6 +132,10 @@ def query_project(pid):
     if project == None:
         return make_response(jsonify({"status": "failure"}),400)
     return make_response(jsonify(project), 200)
+
+
+# TODO: leaving a project (deleting project if last user leaves, checkin all resources if so)
+
 
 @app.route('/hardwaresets', methods=['GET'])
 def hwset_query():

@@ -1,7 +1,6 @@
 import pymongo
 import cipher
 
-# TODO: how to hide this connection string during deployment? is it even possible?
 db_connection_string = "mongodb+srv://admin:ECE461L_TheWiggles@cluster0.ypsn3um.mongodb.net/?retryWrites=true&w=majority"
 
 def addNewUser(userid, password):
@@ -15,9 +14,8 @@ def addNewUser(userid, password):
     if users.find_one({"userid" : userid}):
         ret = 1
     else:
-        new_user_doc = {"userid": userid, "password": cipher.encrypt(password, 2, 1)}
-        user_inserted_id = users.insert_one(new_user_doc).inserted_id
-
+        new_user_doc = {"userid": userid, "password": cipher.encrypt(password, 2, 1), "projectlist": []}
+        users.insert_one(new_user_doc)
 
     client.close()
     return ret
