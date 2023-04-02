@@ -33,6 +33,14 @@ function SignupPage() {
       const response = await fetch('/users', fetch_options);
       const response_body = await response.json();
       console.log(response_body)
+      if (response_body.status == "failure"){
+        alert(userid_val + " already exists")
+        console.log("failed signup");
+      }
+      else{
+        alert("Successful signup")
+        console.log("successful signup");
+      }
     }
 
 
