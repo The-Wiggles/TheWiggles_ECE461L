@@ -6,6 +6,7 @@ import { useState, useEffect, useCallback } from 'react';
 import Project from '../components/Project'
 import HWSet from '../components/HWSet';
 import { TextField, Button } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 
 
 function ProjectManager(){
@@ -82,6 +83,10 @@ function ProjectManager(){
         });
     }
 
+    let navigate = useNavigate();
+    function log_out(){
+        navigate('/');
+    }
 
     useEffect(() => {
 
@@ -151,6 +156,10 @@ function ProjectManager(){
                         <div class="project_authlist_container">
                             <TextField required id="userid_textfield" label="UserID" />
                             <Button variant="contained" onClick={add_to_authlist}>Add User</Button>
+                        </div>
+
+                        <div>
+                            <Button variant="contained" onClick={log_out}>Logout</Button>
                         </div>
 
                     </div>
