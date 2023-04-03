@@ -216,7 +216,7 @@ def hwset_checkin(hwset_name,qty,pid):
     hardware_sets.update_one({'name':hwset_name}, {"$set":{'available':hwset_available}})
 
     client.close()
-    return 0
+    return checked_in_qty
 
 def hwset_checkout(hwset_name,qty,pid):
     client = pymongo.MongoClient(db_connection_string)

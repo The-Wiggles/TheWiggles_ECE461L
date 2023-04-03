@@ -143,9 +143,6 @@ def query_project(pid):
     return make_response(jsonify(project), 200)
 
 
-# TODO: leaving a project (deleting project if last user leaves, checkin all resources if so)
-
-
 @app.route('/hardwaresets', methods=['GET'])
 def hwset_query():
     hwset_name = request.args.get("name")
@@ -167,10 +164,10 @@ def hwset_checkin():
     hwset_name = request_data['name']
     qty = request_data['qty']
     pid = request_data['pid']
-    result = mongo.hwset_checkin(hwset_name,qty,pid)
-    if result == None:
+    checked_in = mongo.hwset_checkin(hwset_name,qty,pid)
+    if checked_in == None:
         return make_response(jsonify({"status": "failure"}), 400)
-    return make_response(jsonify({"status": "success"}),200)
+    return make_response(jsonify({"status": "success", "checked_in": checked_in}),200)
 
 @app.route('/hardwaresets/checkout', methods=['POST'])
 def hwset_checkout():
@@ -181,8 +178,7 @@ def hwset_checkout():
     checked_out = mongo.hwset_checkout(hwset_name,qty,pid)
     if checked_out == None:
         return make_response(jsonify({"status": "failure"}), 400)
-    
-    return make_response(jsonify({"checked_out": checked_out}), 200)
+    return make_response(jsonify({"status": "success", "checked_out": checked_out}), 200)
 
 if __name__ == '__main__':
     app.run()

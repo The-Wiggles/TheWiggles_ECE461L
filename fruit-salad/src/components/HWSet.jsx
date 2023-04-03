@@ -38,7 +38,12 @@ function HWSet(props){
         }
 
         const checkin_response = await fetch('/hardwaresets/checkin', fetch_options);
+        const checkin_response_json = await checkin_response.json();
         if(checkin_response.status !== 200){return;}
+        let checked_in = checkin_response_json['checked_in'];
+        alert("Checked in " + checked_in + " units of " + props.hwset_name);
+
+
 
         const hwset_query_response = await fetch('/hardwaresets?name='+props.hwset_name);
         const hwset = await hwset_query_response.json();
@@ -74,7 +79,10 @@ function HWSet(props){
         };
 
         const checkout_response = await fetch('/hardwaresets/checkout', fetch_options);
+        const checkout_response_json = await checkout_response.json();
         if(checkout_response.status !== 200){return;}
+        let checked_out = checkout_response_json['checked_out'];
+        alert("Checked out " + checked_out + " units of " + props.hwset_name);
 
         const hwset_query_response = await fetch('/hardwaresets?name='+props.hwset_name);
         const hwset = await hwset_query_response.json();
