@@ -21,22 +21,56 @@ paths:
       responses:
         '201':
           description: Created
+  /projects:
+    get:
+      summary: Query project by ProjectID
+      parameters:
+        - in: query
+          name: pid
+          schema:
+            type: string
+          required: true
+          description: ID of project user is trying to query
+      responses:
+        '200':
+          description: Query successful
+        '400':
+          description: Query failed
           
 
 
 components:
   schemas:
+
     User:
       type: object
       properties:
         userid:
           type: string
-        name:
-          type: string
         password:
           type: string
       required:
         - userid
-        - name
         - password
 
+    Project:
+      type: object
+      properties:
+        pid:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        authlist:
+          type: array
+          items:
+            type: string
+          example: ["userid1, userid2"]
+        hwsets:
+          type: object
+          properties:
+            HWSet1:
+              type: integer
+            HWSet2:
+              type: integer
