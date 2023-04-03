@@ -9,7 +9,7 @@
 }
 
 .user_projects_container {
-    width: 40em;
+    width: 50em;
 }
 
 .utilities_section {
@@ -28,15 +28,26 @@
     gap: 1em;
 }
 
-
 .project_add_container {
     margin-bottom: 1em;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: .7em;
 }
 
 .project_join_container {
     margin-bottom: 1em;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: .7em;
 }
 
 .project_authlist_container {
     margin-bottom: 1em;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: .7em;
 }

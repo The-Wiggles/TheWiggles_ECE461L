@@ -100,10 +100,10 @@ function HWSet(props){
 
 
     return(
-        <div class="hwsetcontainer">
+        <div className="hwsetcontainer">
 
-            <p class="hwset_name">{props.hwset_name}:</p>
-            <p class="hwset_capacitylabel">{hwset_available}/{hwset_capacity}</p>
+            <p className="hwset_name">{props.hwset_name}:</p>
+            <p className="hwset_capacitylabel">{hwset_available}/{hwset_capacity}</p>
 
             <TextField
                 variant="filled"

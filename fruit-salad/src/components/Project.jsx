@@ -13,6 +13,27 @@ function Project(props){
         props.set_active_pid(props.pid);
     }
 
+    const project_leave = async () => {
+        let confirm_result = window.confirm("Are you sure you want to leave " + props.pid + "?");
+        if(confirm_result === false){return;}
+        
+        let pid = props.pid;
+        let userid = props.userid;
+
+        const response = await fetch('/projects?pid='+pid+'&userid='+userid, {method: 'PATCH'});
+
+        if(response.status !== 200){
+            alert("Failed to leave project.");
+            return;
+        }
+
+        // props.set_projects_refresh(!props.projects_refresh); // no idea if this will work
+        props.update_projects();
+        props.set_active_pid("");
+
+        // need to update global hwsets too
+    }
+
     useEffect(() => {
 
         fetch('/projects?pid='+props.pid).then( (response) => {
@@ -50,6 +71,16 @@ function Project(props){
                     marginLeft: "auto"
                 }}>
             MANAGE
+            </Button>
+
+            <Button
+                variant="contained"
+                onClick={project_leave}
+                sx={{
+                    bgcolor: "darkred",
+                    marginLeft: "auto"
+                }}>
+            LEAVE
             </Button>
 
         </div>

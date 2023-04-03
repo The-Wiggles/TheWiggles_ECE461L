@@ -106,6 +106,15 @@ def add_to_authlist():
         return make_response(jsonify({"status": "failure"}),400)
     return make_response(jsonify({"status": "success"}),200)
 
+@app.route('/projects', methods=['PATCH'])
+def project_leave():
+    userid = request.args.get("userid")
+    pid = request.args.get("pid")
+    result = mongo.project_leave(pid, userid)
+    if result == None:
+        return make_response(jsonify({"status": "failure"}),400)
+    return make_response(jsonify({"status": "success"}),200)
+
 
 @app.route('/projects', methods=['GET'])
 def get_projects():

@@ -24,11 +24,22 @@ function ProjectManager(){
         return response_body;
     }, [location.state.userid]); 
 
+    function update_projects() {
+        get_projects().then((projects) => {
+            set_project_list(projects);
+        });
+    }
+
     const add_project = async () => {
         let proj_name = document.getElementById("project_name_textfield").value;
         let proj_desc = document.getElementById("project_desc_textfield").value;
         let proj_id = document.getElementById("project_pid_textfield").value;
         let proj_authlist = [location.state.userid];
+
+        if(proj_name === "" || proj_id === ""){
+            alert("Project name and ProjectID must not be blank!");
+            return;
+        }
 
         const proj_data = {
             name: proj_name,
@@ -56,6 +67,11 @@ function ProjectManager(){
     const add_to_authlist = async () => {
         let pid = active_pid;
         let userid = document.getElementById("userid_textfield").value;
+        
+        if(userid === ""){
+            alert("UserID must not be blank!");
+            return;
+        }
 
         const response = await fetch('/projects?pid='+pid+'&userid='+userid, {method: 'PUT'});
         if(response.status !== 200){
@@ -71,6 +87,11 @@ function ProjectManager(){
     const join_project = async () => {
         let pid = document.getElementById("pid_textfield").value;
         let userid = location.state.userid;
+
+        if(pid === ""){
+            alert("ProjectID must not be blank!");
+            return;
+        }
 
         const response = await fetch('/projects?pid='+pid+'&userid='+userid, {method: 'PUT'});
         if(response.status !== 200){
@@ -105,6 +126,9 @@ function ProjectManager(){
             authlist={project['authlist'].join(", ")} 
             set_active_pid={set_active_pid}
             projects_refresh={projects_refresh}
+            set_projects_refresh={set_projects_refresh}
+            update_projects={update_projects}
+            userid={location.state.userid}
         />
     ));
 
@@ -141,21 +165,21 @@ function ProjectManager(){
 
                         <h2> Project Management</h2>
 
-                        <div class="project_add_container">
-                            <TextField required id="project_name_textfield" label="Name" />
-                            <TextField required id="project_pid_textfield" label="ProjectID" />
-                            <TextField required id="project_desc_textfield" label="Description" />
+                        <div className="project_add_container">
+                            <TextField variant="filled" required id="project_name_textfield" label="Name" sx={{width: "8em"}} />
+                            <TextField variant="filled" required id="project_pid_textfield" label="ProjectID" sx={{width: "7em"}} />
+                            <TextField variant="filled" id="project_desc_textfield" label="Description" />
                             <Button variant="contained" onClick={add_project}>Create Project</Button>
                         </div>
 
-                        <div class="project_join_container">
-                            <TextField required id="pid_textfield" label="ProjectID" />
+                        <div className="project_join_container">
+                            <TextField variant="filled" required id="pid_textfield" label="ProjectID" sx={{width: "7em"}} />
                             <Button variant="contained" onClick={join_project}>Join Project</Button>
                         </div>
 
-                        <div class="project_authlist_container">
-                            <TextField required id="userid_textfield" label="UserID" />
-                            <Button variant="contained" onClick={add_to_authlist}>Add User</Button>
+                        <div className="project_authlist_container">
+                            <TextField variant="filled" required id="userid_textfield" label="UserID" sx={{width: "10em"}} />
+                            <Button variant="contained" onClick={add_to_authlist}>Add User To Project</Button>
                         </div>
 
                         <div>

@@ -127,6 +127,44 @@ def getProjects(userid):
     client.close()
     return user_projects
 
+def project_leave(pid, userid):
+    client = pymongo.MongoClient(db_connection_string)
+    db = client["fruit-salad"]
+    projects = db["projects"]
+    users = db["users"]
+
+    project = projects.find_one({'pid': pid})
+    user = users.find_one({'userid': userid})
+    if project == None or user == None:
+        client.close()
+        return
+    
+
+    user_projectlist = user['projectlist']
+    project_authlist = project['authlist']
+    if pid not in user_projectlist:
+        client.close()
+        return
+    if userid not in project_authlist:
+        client.close()
+        return
+    
+    user_projectlist.remove(pid)
+    project_authlist.remove(userid)
+    users.update_one({'userid': userid}, {'$set': {"projectlist": user_projectlist}})
+    projects.update_one({'pid':pid}, {'$set': {'authlist': project_authlist}})
+
+    if(len(project_authlist) == 0):
+        project_hwsets = project['hwsets']
+        HWSet1 = project_hwsets['HWSet1']
+        HWSet2 = project_hwsets['HWSet2']
+        hwset_checkin("HWSet1", HWSet1, pid)
+        hwset_checkin("HWSet2", HWSet2, pid)
+        projects.delete_one({'pid': pid})
+
+    client.close()
+    return 0
+
 def hwset_getstats(name):
     client = pymongo.MongoClient(db_connection_string)
     db = client["fruit-salad"]
