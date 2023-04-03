@@ -78,6 +78,9 @@ def queryProject(pid):
     projects = db["projects"]
 
     project = projects.find_one({"pid": pid})
+    if project == None:
+        client.close()
+        return
     del project['_id']
     client.close()
     return project
