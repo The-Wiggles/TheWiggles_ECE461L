@@ -15,7 +15,8 @@ function ProjectManager(){
 
     const [project_list, set_project_list] = useState([]);
     const [active_pid, set_active_pid] = useState("");
-    const [projects_refresh, set_projects_refresh] = useState(true)
+    const [projects_refresh, set_projects_refresh] = useState(true);
+    const [hwsets_refresh, set_hwsets_refresh] = useState(true);
 
     const get_projects = useCallback(async () => {
         const response = await fetch('/projects?userid='+location.state.userid);
@@ -126,9 +127,10 @@ function ProjectManager(){
             authlist={project['authlist'].join(", ")} 
             set_active_pid={set_active_pid}
             projects_refresh={projects_refresh}
-            set_projects_refresh={set_projects_refresh}
             update_projects={update_projects}
             userid={location.state.userid}
+            hwsets_refresh={hwsets_refresh} 
+            set_hwsets_refresh={set_hwsets_refresh} 
         />
     ));
 
@@ -155,8 +157,19 @@ function ProjectManager(){
                         }
 
                         <div className='hwsets_container'>
-                            <HWSet hwset_name="HWSet1" active_pid={active_pid} projects_refresh={projects_refresh} set_projects_refresh={set_projects_refresh} />
-                            <HWSet hwset_name="HWSet2" active_pid={active_pid} projects_refresh={projects_refresh} set_projects_refresh={set_projects_refresh} />
+                            <HWSet hwset_name="HWSet1" 
+                                active_pid={active_pid} 
+                                projects_refresh={projects_refresh} 
+                                set_projects_refresh={set_projects_refresh} 
+                                hwsets_refresh={hwsets_refresh}
+                            />
+
+                            <HWSet hwset_name="HWSet2" 
+                                active_pid={active_pid} 
+                                projects_refresh={projects_refresh} 
+                                set_projects_refresh={set_projects_refresh}
+                                hwsets_refresh={hwsets_refresh}
+                            />
                         </div>
 
                     </div>

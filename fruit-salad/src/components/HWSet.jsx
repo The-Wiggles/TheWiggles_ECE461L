@@ -96,7 +96,7 @@ function HWSet(props){
         });
         
 
-    }, [props.hwset_name]);
+    }, [props.hwset_name, props.hwsets_refresh]);
 
 
     return(

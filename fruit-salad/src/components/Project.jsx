@@ -27,11 +27,9 @@ function Project(props){
             return;
         }
 
-        // props.set_projects_refresh(!props.projects_refresh); // no idea if this will work
         props.update_projects();
         props.set_active_pid("");
-
-        // need to update global hwsets too
+        props.set_hwsets_refresh(!props.hwsets_refresh); // no idea why this works
     }
 
     useEffect(() => {
