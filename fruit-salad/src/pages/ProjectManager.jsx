@@ -5,7 +5,7 @@ import { useState, useEffect, useCallback } from 'react';
 
 import Project from '../components/Project'
 import HWSet from '../components/HWSet';
-import { TextField, Button } from '@mui/material';
+import { TextField, Button, Tooltip, Fade } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 
 
@@ -179,19 +179,59 @@ function ProjectManager(){
                         <h2> Project Management</h2>
 
                         <div className="project_add_container">
-                            <TextField variant="filled" required id="project_name_textfield" label="Name" sx={{width: "8em"}} />
-                            <TextField variant="filled" required id="project_pid_textfield" label="ProjectID" sx={{width: "7em"}} />
-                            <TextField variant="filled" id="project_desc_textfield" label="Description" />
+                            <Tooltip
+                                TransitionComponent={Fade}
+                                TransitionProps={{ timeout: 600 }}
+                                title="Project name can be made of any printable characters Ex: XXProjectXX, project$, TestProject123"
+                                placement='top-start'
+                                arrow
+                            >
+                                <TextField variant="filled" required id="project_name_textfield" label="Name" sx={{width: "8em"}} />
+                            </Tooltip>
+                            <Tooltip
+                                TransitionComponent={Fade}
+                                TransitionProps={{ timeout: 600 }}
+                                title="ProjectID can be made of any printable characters, try to make it memorable!"
+                                placement='top-start'
+                                arrow
+                            >
+                                <TextField variant="filled" required id="project_pid_textfield" label="ProjectID" sx={{width: "7em"}} />
+                            </Tooltip>
+                            <Tooltip
+                                TransitionComponent={Fade}
+                                TransitionProps={{ timeout: 600 }}
+                                title="Optional short description of the project to be created"
+                                placement='top-start'
+                                arrow
+                            >
+                                <TextField variant="filled" id="project_desc_textfield" label="Description" />
+                            </Tooltip>
                             <Button variant="contained" onClick={add_project}>Create Project</Button>
                         </div>
 
                         <div className="project_join_container">
-                            <TextField variant="filled" required id="pid_textfield" label="ProjectID" sx={{width: "7em"}} />
+                            <Tooltip
+                                TransitionComponent={Fade}
+                                TransitionProps={{ timeout: 600 }}
+                                title="Enter in ProjectID of an existing project to join it"
+                                placement='top-start'
+                                arrow
+                            >
+                                <TextField variant="filled" required id="pid_textfield" label="ProjectID" sx={{width: "7em"}} />
+                            </Tooltip>
                             <Button variant="contained" onClick={join_project}>Join Project</Button>
                         </div>
 
                         <div className="project_authlist_container">
-                            <TextField variant="filled" required id="userid_textfield" label="UserID" sx={{width: "10em"}} />
+                            <Tooltip
+                                TransitionComponent={Fade}
+                                TransitionProps={{ timeout: 600 }}
+                                title="Enter in UserID of a user to add them to the project's authorized user list"
+                                placement='top-start'
+                                arrow
+                            >
+                                <TextField variant="filled" required id="userid_textfield" label="UserID" sx={{width: "10em"}} />
+                            </Tooltip>
                             <Button variant="contained" onClick={add_to_authlist}>Add User To Project</Button>
                         </div>
 

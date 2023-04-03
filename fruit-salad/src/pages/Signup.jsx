@@ -1,6 +1,6 @@
 import React from 'react';
 import './../css/Signup.css'
-import { Box, Button, TextField } from '@mui/material';
+import { Box, Button, TextField, Tooltip, Fade } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 // import { Link } from "react-router-dom";
 
@@ -46,11 +46,27 @@ function SignupPage() {
         <div className="SignupPage">
           <Box sx={{p:5, bgcolor: '#e0e0e0', borderRadius: '25px'}}>
             <div>
-              <div>
-                <TextField required id="userid" label="UserID" variant="outlined" margin="normal"/>
+            <div>
+                <Tooltip
+                TransitionComponent={Fade}
+                TransitionProps={{ timeout: 600 }}
+                title="UserIDs can be made of any printable characters Ex: Jzubia, Mrojas$, TestName123"
+                placement='top-start'
+                arrow
+                >
+                  <TextField required id="userid" label="UserID" variant="outlined" margin="normal"/>
+                </Tooltip>
               </div>
               <div>
-                <TextField required id="password" label="Password" variant="outlined" margin="dense"/>
+                <Tooltip
+                  TransitionComponent={Fade}
+                  TransitionProps={{ timeout: 600 }}
+                  title="Passwords must not contain ! or spaces"
+                  placement='top-start'
+                  arrow
+                >
+                  <TextField required id="password" label="Password" variant="outlined" margin="dense"/>
+                </Tooltip>
               </div>
             <div>
                 <Button variant="contained" onClick={addUser} sx={buttonstyle}>SIGN UP</Button>
